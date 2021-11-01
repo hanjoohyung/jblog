@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 **/.classpath
 **/.project
 **/.settings
 **/target
+=======
+**/.classpath
+**/.project
+**/.settings
+**/target
+>>>>>>> branch 'master' of https://github.com/hanjoohyung/jblog.git
 **/build
