@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.douzone</groupId>
-		<artifactId>jblog</artifactId>
+		<artifactId>mysite</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>jblog03</artifactId>
@@ -13,7 +13,7 @@
 	<properties>
 		<org.springframework-version>4.3.4.RELEASE</org.springframework-version>
 		<jcloverslf4j.version>1.7.6</jcloverslf4j.version>
-		<logback.version>1.1.1</logback.version>		
+		<logback.version>1.1.1</logback.version>
 	</properties>
 
 	<dependencies>
@@ -28,7 +28,7 @@
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
-			</exclusions>			
+			</exclusions>
 		</dependency>
 
 		<!-- Spring MVC -->
@@ -45,20 +45,20 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		
-		<!--  Spring Aspect -->
+		<!-- Spring Aspect -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-			
-		<!-- Spring JDBC -->
+		
+ 		<!-- Spring JDBC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${org.springframework-version}</version>
-		</dependency>				
-
+		</dependency>
+		
 		<!-- jstl -->
 		<dependency>
 		    <groupId>jstl</groupId>
@@ -83,10 +83,10 @@
 		<!-- jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
+				<artifactId>jackson-databind</artifactId>
 			<version>2.9.8</version>
 		</dependency>
-			
+		
 		<!-- validation -->
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -98,7 +98,7 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.1.0.Final</version>
 		</dependency>
-				
+		
 		<!-- MariaDB JDBC Driver -->		
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
@@ -118,13 +118,14 @@
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>3.2.2</version>
-			</dependency>
+		</dependency>
+
 		<dependency>
-		<groupId>org.mybatis</groupId>
+			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.0</version>
 		</dependency>
-
+		
 		<!-- logback(slf4j) -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -136,7 +137,7 @@
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 		</dependency>
-								
+						
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -176,5 +177,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>	
+	</build>
 </project>

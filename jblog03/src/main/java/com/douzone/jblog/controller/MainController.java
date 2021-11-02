@@ -13,7 +13,6 @@ public class MainController {
 	
 	@RequestMapping({"", "/main"})
 	public String index() {
-
 		return "main/index";
 	}
 }

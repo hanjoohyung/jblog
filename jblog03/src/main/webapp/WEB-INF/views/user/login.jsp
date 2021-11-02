@@ -12,16 +12,25 @@
 </head>
 <body>
 	<div class="center-content">
-		<h1 class="logo">JBlog</h1>
+		<h1 class="logo" style="background:url(${pageContext.request.contextPath}/assets/images/logo.jpg) no-repeat 0 0">JBlog</h1>
 		<ul class="menu">
-			<li><a href="">로그인</a></li>
-			<li><a href="">회원가입</a></li>
-			<li><a href="">로그아웃</a></li>
-			<li><a href="">내블로그</a></li>
+			<c:choose>
+				<c:when test="${empty authUser }">
+					<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>	
+					<li><a href="${pageContext.request.contextPath}/user/join">회원가입</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/blog-main">내블로그</a></li>
+				</c:otherwise>
+			</c:choose>
 		</ul>
-		<form class="login-form">
-      		<label>아이디</label> <input type="text" name="id">
+		<form id="login-form" name="loginform" method="post" action="${pageContext.request.contextPath }/user/auth">
+      		<label>아이디</label> <input type="text" name="id"><br/><br/>
       		<label>패스워드</label> <input type="text" name="password">
+      		<c:if test='${result == "fail" }'>
+						<p>잘못된 ID 혹은 PASSWORD 입니다.</p>
+			</c:if>
       		<input type="submit" value="로그인">
 		</form>
 	</div>
