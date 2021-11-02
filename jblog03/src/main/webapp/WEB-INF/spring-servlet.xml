@@ -40,6 +40,9 @@
 	<!-- 서블릿 컨테이너(tomcat)의 DefaultServlet 위임(Delegate) Handler -->
 	<mvc:default-servlet-handler />
 	
+	<!-- mvc url-resource mapping -->
+	<mvc:resources mapping="/upload/images/**" location="file:/upload-jblog/" />
+	
 	<!-- Interceptor -->
 	<mvc:interceptors>
 		<mvc:interceptor>

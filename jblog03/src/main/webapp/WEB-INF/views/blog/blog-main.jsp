@@ -12,7 +12,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>Spring 이야기</h1>
+			<h1>${blog.title}</h1>
 			<ul>
 			<c:choose>
 				<c:when test="${empty authUser }">
@@ -48,7 +48,7 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
+				<img id="logo" src="${pageContext.request.contextPath}${blog.logo}">
 			</div>
 		</div>
 

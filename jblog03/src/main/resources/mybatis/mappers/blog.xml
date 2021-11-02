@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="blog">
+	<update id="update" parameterType="blogvo">
+		<![CDATA[
+			update blog set title=#{title }, logo=#{logo } where id=#{id}
+		]]>
+	</update>
 	
+	<select id="find" parameterType="boolean" resultType="blogvo">
+		<![CDATA[
+			select id, title, logo from blog
+		]]>
+	</select>
 </mapper>

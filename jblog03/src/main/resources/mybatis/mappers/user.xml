@@ -9,13 +9,13 @@
 	
 	<select id="findById" parameterType="string" resultType="uservo">
 		<![CDATA[
-			select name, password, join_date as joinDate from user where id= #{id}
+			select id, name, password, join_date as joinDate from user where id= #{id}
 		]]>
 	</select>
 	
 	<select id="findByIdAndPassword" parameterType="string" resultType="uservo">
 		<![CDATA[
-			select name, join_date as joinDate from user where id=#{id } and password=#{password }
+			select id, name, join_date as joinDate from user where id=#{id } and password=#{password }
 		]]>
 	</select>
 </mapper>
