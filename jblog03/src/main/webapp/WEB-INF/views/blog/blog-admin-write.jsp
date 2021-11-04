@@ -12,7 +12,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>${blog.title}</h1>
+			<h1>${vo.title}</h1>
 			<ul>
 			<c:choose>
 				<c:when test="${empty authUser }">
@@ -20,7 +20,7 @@
 				</c:when>
 				<c:otherwise>
 					<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-basic">블로그 관리</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-basic/${authUser.id}">블로그 관리</a></li>
 				</c:otherwise>
 			</c:choose>
 			</ul>
@@ -28,20 +28,25 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li><a href="${pageContext.request.contextPath}/blog/blog-main">블로그</a></li>
-					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-basic">기본설정</a></li>
-					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-category">카테고리</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/blog-main/${authUser.id}">블로그</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-basic/${authUser.id}">기본설정</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-category/${authUser.id}">카테고리</a></li>
 					<li class="selected">글작성</li>
 				</ul>
-				<form action="${pageContext.request.contextPath}/blog/add" method="post">
+				<form action="${pageContext.request.contextPath}/blog/add/${authUser.id}" method="post">
+				
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
 			      			<td>
 			      				<input type="text" size="60" name="title">
 				      			<select name="category">
-				      				<option>미분류</option>
-				      				<option>자바</option>
+				      				<c:set var='no' value='${fn:length(list) }' />
+				      				
+										<c:forEach items='${list }' var='categoryVo' varStatus='status'>										
+												<option>${categoryVo.name}</option>
+										</c:forEach>
+										
 				      			</select>
 				      		</td>
 			      		</tr>

@@ -1,5 +1,7 @@
 package com.douzone.jblog.controller;
 
+import java.util.List;
+
 import javax.servlet.ServletContext;
 
 import org.apache.commons.logging.Log;
@@ -19,6 +21,7 @@ import com.douzone.jblog.security.AuthUser;
 import com.douzone.jblog.service.BlogService;
 import com.douzone.jblog.service.FileUploadService;
 import com.douzone.jblog.vo.BlogVo;
+import com.douzone.jblog.vo.CategoryVo;
 import com.douzone.jblog.vo.PostVo;
 import com.douzone.jblog.vo.UserVo;
 
@@ -38,19 +41,25 @@ public class BlogController {
 	private FileUploadService fileUploadService;
 	
 	@Auth
-	@RequestMapping({"", "/blog-main"})
-	public String index(Model model) {
-		BlogVo blog = blogService.getBlog();
-		model.addAttribute("blog", blog);
+	@RequestMapping({"" ,"/blog-main","/blog-main/{authUser.id}"})
+	public String index(Model model, BlogVo blog, @AuthUser UserVo authUser, @PathVariable("authUser.id") String id, CategoryVo cgvo) {
+		blog.setId(id);
+		BlogVo vo = blogService.getBlog(blog);
+		model.addAttribute("vo", vo);
+		cgvo.setBlogId(id);
+		List<CategoryVo> list = blogService.findCategory(cgvo);
+		model.addAttribute("list", list);
 		
 		return "blog/blog-main";
 	}
 	
 	@Auth
-	@RequestMapping(value="/blog-admin-basic", method=RequestMethod.GET)
-	public String basic(Model model) {
-		BlogVo blog = blogService.getBlog();
-		model.addAttribute("blog", blog);
+	@RequestMapping(value="/blog-admin-basic/{authUser.id}", method=RequestMethod.GET)
+	public String basic(Model model, BlogVo blog, @PathVariable("authUser.id") String id) {
+		blog.setId(id);
+		BlogVo vo = blogService.getBlog(blog);
+		model.addAttribute("vo", vo);
+		
 		
 		return "blog/blog-admin-basic";
 	}
@@ -71,31 +80,50 @@ public class BlogController {
 		blogService.update(blog);
 		servletContext.setAttribute("blog", blog);
 		
-		return "redirect:/blog/blog-main";
+		return "redirect:/blog/blog-main/{authUser.id}";
 	}	
 	
 	@Auth
-	@RequestMapping(value="/blog-admin-category", method=RequestMethod.GET)
-	public String category(Model model) {
-		BlogVo blog = blogService.getBlog();
-		model.addAttribute("blog", blog);
+	@RequestMapping(value="/blog-admin-category/{authUser.id}", method=RequestMethod.GET)
+	public String category(Model model, BlogVo blog, @PathVariable("authUser.id") String id, CategoryVo cgvo) {
+		blog.setId(id);
+		BlogVo vo = blogService.getBlog(blog);
+		model.addAttribute("vo", vo);
+		cgvo.setBlogId(id);
+		List<CategoryVo> list = blogService.findCategory(cgvo);
+		model.addAttribute("list", list);
 		
 		return "blog/blog-admin-category";
+	}
+	@Auth
+	@RequestMapping(value="/cateadd/{authUser.id}", method=RequestMethod.POST)
+	public String cateadd(Model model, BlogVo blog, @PathVariable("authUser.id") String id, CategoryVo cgvo) {
+		cgvo.setBlogId(id);
+		
+		blogService.addCategory(cgvo);
+		
+		return "redirect:/blog/blog-main/{authUser.id}";
 	}
 	
 	
 	@Auth
-	@RequestMapping(value="/blog-admin-write", method=RequestMethod.GET)
-	public String write(Model model) {
-		BlogVo blog = blogService.getBlog();
-		model.addAttribute("blog", blog);
+	@RequestMapping(value="/blog-admin-write/{authUser.id}", method=RequestMethod.GET)
+	public String write(Model model, BlogVo blog, @PathVariable("authUser.id") String id,CategoryVo cgvo) {
+		blog.setId(id);
+		BlogVo vo = blogService.getBlog(blog);
+		model.addAttribute("vo", vo);
+		cgvo.setBlogId(vo.getId());
+		List<CategoryVo> list = blogService.findCategory(cgvo);
+		model.addAttribute("list", list);
 		return "blog/blog-admin-write";
 	}
 	
 	@Auth
-	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String add(Model model, PostVo vo) {
-		blogService.addPost(vo);
+	@RequestMapping(value="/add/{authUser.id}", method=RequestMethod.POST)
+	public String add(Model model, BlogVo blog, @PathVariable("authUser.id") String id, CategoryVo cgvo, PostVo postvo) {
+		// postvo.setCategoryNo();
+		
+		blogService.addPost(postvo);
 		
 		return "redirect:/blog/blog-main";
 	}

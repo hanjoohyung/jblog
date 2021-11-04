@@ -4,6 +4,7 @@ public class CategoryVo {
 	private Long no;
 	private String name;
 	private String desc;
+	private String blogId;
 	public Long getNo() {
 		return no;
 	}
@@ -21,6 +22,12 @@ public class CategoryVo {
 	}
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}
+	public String getBlogId() {
+		return blogId;
+	}
+	public void setBlogId(String blogId) {
+		this.blogId = blogId;
 	}
 	@Override
 	public String toString() {

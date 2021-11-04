@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="blog">
+	<insert id="insert" parameterType="blogvo">
+		insert into blog values(#{id}, '블로그', '/upload/images/2021102105291.png')
+	</insert>
+
 	<update id="update" parameterType="blogvo">
 		<![CDATA[
 			update blog set title=#{title }, logo=#{logo } where id=#{id}
 		]]>
 	</update>
 	
-	<select id="find" parameterType="boolean" resultType="blogvo">
+	<select id="find" parameterType="blogvo" resultType="blogvo">
 		<![CDATA[
-			select id, title, logo from blog
+			select id,title,logo from blog where id=#{id}
 		]]>
 	</select>
 </mapper>

@@ -12,7 +12,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>${blog.title}</h1>
+			<h1>${vo.title}</h1>
 			<ul>
 			<c:choose>
 				<c:when test="${empty authUser }">
@@ -20,7 +20,7 @@
 				</c:when>
 				<c:otherwise>
 					<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-basic">블로그 관리</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-basic/${authUser.id}">블로그 관리</a></li>
 				</c:otherwise>
 			</c:choose>		
 			</ul>
@@ -48,17 +48,19 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img id="logo" src="${pageContext.request.contextPath}${blog.logo}">
+				<img id="logo" src="${pageContext.request.contextPath}${vo.logo}">
 			</div>
 		</div>
 
 		<div id="navigation">
 			<h2>카테고리</h2>
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/blog/blog-admin-category">닥치고 스프링</a></li>
-				<li><a href="${pageContext.request.contextPath}/blog/blog-admin-category">스프링 스터디</a></li>
-				<li><a href="${pageContext.request.contextPath}/blog/blog-admin-category">스프링 프로젝트</a></li>
-				<li><a href="${pageContext.request.contextPath}/blog/blog-admin-category">기타</a></li>
+				<c:set var='no' value='${fn:length(list) }' />
+						<c:forEach items='${list }' var='categoryVo' varStatus='status'>	
+								<tr>
+									<td>${categoryVo.name}</td></br></br>
+								</tr>
+						</c:forEach>
 			</ul>
 		</div>
 		

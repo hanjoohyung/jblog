@@ -12,7 +12,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>${blog.title}</h1>
+			<h1>${vo.title}</h1>
 			<ul>
 			<c:choose>
 				<c:when test="${empty authUser }">
@@ -20,7 +20,7 @@
 				</c:when>
 				<c:otherwise>
 					<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-basic">블로그 관리</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-basic/${authUser.id}">블로그 관리</a></li>
 				</c:otherwise>
 			</c:choose>
 			</ul>
@@ -28,10 +28,10 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li><a href="${pageContext.request.contextPath}/blog/blog-main">블로그</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/blog-main/${authUser.id}">블로그</a></li>
 					<li class="selected">기본설정</li>
-					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-category">카테고리</a></li>
-					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-write">글작성</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-category/${authUser.id}">카테고리</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-write/${authUser.id}">글작성</a></li>
 				</ul>
 				<form action="${pageContext.request.contextPath}/blog/update/${authUser.id}" method="post" enctype="multipart/form-data" >
 	 		      	<table class="admin-config">
@@ -41,7 +41,7 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img src="${pageContext.request.contextPath}${blog.logo}"></td>      			
+			      			<td><img src="${pageContext.request.contextPath}${vo.logo}"></td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
