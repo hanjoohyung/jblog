@@ -6,4 +6,22 @@
 			 insert into post values(null, #{title}, #{contents}, now(), #{categoryNo})
 		]]>
 	</insert>
+	
+	<select id="findall" parameterType="postvo" resultType="postvo">
+		<![CDATA[
+			select no, title, contents, reg_date as regDate, category_no as categoryNo from post where category_no = #{categoryNo} and no = #{no} order by category_no asc
+		]]>
+	</select>
+	
+	<select id="find" parameterType="postvo" resultType="postvo">
+		<![CDATA[
+			select no, title, contents, reg_date as regDate, category_no as categoryNo from post where category_no = #{categoryNo} order by category_no asc
+		]]>
+	</select>
+	
+	<delete id="delete" parameterType="postvo">
+		<![CDATA[
+			delete from post where category_no=#{categoryNo}
+		]]>
+	</delete>
 </mapper>

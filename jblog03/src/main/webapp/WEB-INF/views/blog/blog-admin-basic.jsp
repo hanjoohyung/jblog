@@ -28,7 +28,7 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li><a href="${pageContext.request.contextPath}/blog/blog-main/${authUser.id}">블로그</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/blog-main/${authUser.id}/${categoryVo.no}/${postVo.no}">블로그</a></li>
 					<li class="selected">기본설정</li>
 					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-category/${authUser.id}">카테고리</a></li>
 					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-write/${authUser.id}">글작성</a></li>

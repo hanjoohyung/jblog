@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,14 +42,26 @@ public class BlogController {
 	private FileUploadService fileUploadService;
 	
 	@Auth
-	@RequestMapping({"" ,"/blog-main","/blog-main/{authUser.id}"})
-	public String index(Model model, BlogVo blog, @AuthUser UserVo authUser, @PathVariable("authUser.id") String id, CategoryVo cgvo) {
+	@RequestMapping({"","/blog-main/{authUser.id}/{categoryVo.no}/{postVo.no}"})
+	public String index(Model model, BlogVo blog, @AuthUser UserVo authUser, @PathVariable(value ="authUser.id") String id,
+			CategoryVo cgvo, PostVo postvo, @PathVariable(value="categoryVo.no") Long no, @PathVariable(value="postVo.no") Long no1) {
+		
 		blog.setId(id);
 		BlogVo vo = blogService.getBlog(blog);
 		model.addAttribute("vo", vo);
-		cgvo.setBlogId(id);
+		
+		cgvo.setBlogId(vo.getId());
 		List<CategoryVo> list = blogService.findCategory(cgvo);
 		model.addAttribute("list", list);
+		
+		postvo.setCategoryNo(no);
+		postvo.setNo(no1);
+		
+		List<PostVo> postlist1 = blogService.findall(postvo);
+		List<PostVo> postlist = blogService.findPost(postvo);
+		
+		model.addAttribute("postlist", postlist);
+		model.addAttribute("postlist1", postlist1);
 		
 		return "blog/blog-main";
 	}
@@ -80,7 +93,7 @@ public class BlogController {
 		blogService.update(blog);
 		servletContext.setAttribute("blog", blog);
 		
-		return "redirect:/blog/blog-main/{authUser.id}";
+		return "redirect:/blog/blog-main/{authUser.id}/1/1";
 	}	
 	
 	@Auth
@@ -102,10 +115,19 @@ public class BlogController {
 		
 		blogService.addCategory(cgvo);
 		
-		return "redirect:/blog/blog-main/{authUser.id}";
+		return "redirect:/blog/blog-main/{authUser.id}/1/1";
 	}
 	
-	
+	@Auth
+	@RequestMapping(value="/delete/{authUser.id}/{categoryVo.no}", method=RequestMethod.GET)
+	public String delete(BlogVo blog, @PathVariable("categoryVo.no") Long no, CategoryVo cgvo, PostVo postvo) {
+		postvo.setCategoryNo(no);
+		blogService.deletepost(no);
+		
+		blogService.deleteCategory(no);
+		
+		return "redirect:/blog/blog-main/{authUser.id}/1/1";
+	}
 	@Auth
 	@RequestMapping(value="/blog-admin-write/{authUser.id}", method=RequestMethod.GET)
 	public String write(Model model, BlogVo blog, @PathVariable("authUser.id") String id,CategoryVo cgvo) {
@@ -120,11 +142,11 @@ public class BlogController {
 	
 	@Auth
 	@RequestMapping(value="/add/{authUser.id}", method=RequestMethod.POST)
-	public String add(Model model, BlogVo blog, @PathVariable("authUser.id") String id, CategoryVo cgvo, PostVo postvo) {
-		// postvo.setCategoryNo();
+	public String add(@RequestParam(value="category") Long no, PostVo postvo) {
 		
+		postvo.setCategoryNo(no);
 		blogService.addPost(postvo);
 		
-		return "redirect:/blog/blog-main";
+		return "redirect:/blog/blog-main/{authUser.id}/1/1";
 	}
 }

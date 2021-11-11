@@ -41,4 +41,24 @@ public class BlogService {
 		return blogRepository.findCategory(cgvo);
 	}
 
+	public List<PostVo> findPost(PostVo postvo) {
+		return blogRepository.findPost(postvo);
+	}
+
+	public boolean deleteCategory(Long no) {
+		return blogRepository.delete(no);
+		
+	}
+
+	public boolean deletepost(Long no) {
+		return blogRepository.postdelete(no);
+		
+	}
+
+	public List<PostVo> findall(PostVo postvo) {
+		return blogRepository.findall(postvo);
+	}
+
+
+
 }

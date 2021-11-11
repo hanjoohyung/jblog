@@ -28,7 +28,7 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li><a href="${pageContext.request.contextPath}/blog/blog-main/${authUser.id}">블로그</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/blog-main/${authUser.id}/${categoryVo.no}/${postVo.no}">블로그</a></li>
 					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-basic/${authUser.id}">기본설정</a></li>
 					<li class="selected">카테고리</li>
 					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-write/${authUser.id}">글작성</a></li>
@@ -49,7 +49,7 @@
 									<td>${categoryVo.name}</td>
 									<td></td>
 									<td>${categoryVo.desc}</td>
-									<td><a href="${pageContext.request.contextPath}/blog/delete">
+									<td><a href="${pageContext.request.contextPath}/blog/delete/${authUser.id}/${categoryVo.no}">
 										<img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a></td>
 								</tr>
 							</c:forEach>

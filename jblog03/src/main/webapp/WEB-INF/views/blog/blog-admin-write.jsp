@@ -28,7 +28,7 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li><a href="${pageContext.request.contextPath}/blog/blog-main/${authUser.id}">블로그</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/blog-main/${authUser.id}/${categoryVo.no}/${postVo.no}">블로그</a></li>
 					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-basic/${authUser.id}">기본설정</a></li>
 					<li><a href="${pageContext.request.contextPath}/blog/blog-admin-category/${authUser.id}">카테고리</a></li>
 					<li class="selected">글작성</li>
@@ -42,11 +42,9 @@
 			      				<input type="text" size="60" name="title">
 				      			<select name="category">
 				      				<c:set var='no' value='${fn:length(list) }' />
-				      				
 										<c:forEach items='${list }' var='categoryVo' varStatus='status'>										
-												<option>${categoryVo.name}</option>
+												<option value="${categoryVo.no}">${categoryVo.name}</option>
 										</c:forEach>
-										
 				      			</select>
 				      		</td>
 			      		</tr>

@@ -30,7 +30,6 @@ public class BlogRepository {
 	}
 
 	public boolean insert(BlogVo vo) {
-		System.out.println();
 		int count = sqlSession.insert("blog.insert", vo);
 		return count == 1;
 	}
@@ -43,5 +42,25 @@ public class BlogRepository {
 	public List<CategoryVo> findCategory(CategoryVo cgvo) {
 		return sqlSession.selectList("category.find", cgvo);
 	}
+
+	public List<PostVo> findPost(PostVo postvo) {
+		return sqlSession.selectList("post.find", postvo);
+	}
+
+	public boolean delete(Long no) {
+		int count = sqlSession.delete("category.delete", no);
+		return count == 1;
+	}
+
+	public boolean postdelete(Long no) {
+		int count = sqlSession.delete("post.delete", no);
+		return count == 1;
+	}
+
+	public List<PostVo> findall(PostVo postvo) {
+		return sqlSession.selectList("post.findall", postvo);
+	}
+
+
 
 }
